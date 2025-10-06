@@ -15,6 +15,7 @@ create five JSON Arrays that I will use in an HTML template to create exercises 
 7. create the exercises according to the English level I specify, using words, vocabulary, and examples suitable for learners of that level. 
 8. create as many sentences, and examples with as many exercises as I specify, and the story with as many words as I specify, too. 
 9. the story could be a conversation between two or more people, or a first person or third person narration. Try to be creative and avoid using the same topics for these stories over and over. 
+10. Make sure to add context in the exercises. For example, a sentence with "what is __ name?" is ambiguous because it can have many answers, you can either provide multiple answers (if the json array allows it) or give a context, for example: "she is nice, what is __ name?"
 
 - Speficications 
 1. The exercise is for students of English of [A1 - BEGINNERS]. 
