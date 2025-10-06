@@ -75,56 +75,21 @@ async function loadTopic(topicId){
 loadTopic(TOPICS[0].id);
 
 // --- GLOBAL CHECK & RESET ---
-document.addEventListener("DOMContentLoaded", () => {
-  const checkAllBtn = document.getElementById("check-all");
-  const resetAllBtn = document.getElementById("reset-all");
-  const feedback = document.getElementById("global-feedback");
+checkAllBtn.addEventListener("click", () => {
+  // look for anything marked as correct by its local checker
+  const correctEls = document.querySelectorAll(".correct");
+  const totalExercises =
+    document.querySelectorAll(".exercise").length +
+    document.querySelectorAll(".mc").length +
+    document.querySelectorAll("#match .draggable").length;
 
-  if (!checkAllBtn) return; // safety check
+  const correct = correctEls.length;
+  const percent = totalExercises ? Math.round((correct / totalExercises) * 100) : 0;
 
-  checkAllBtn.addEventListener("click", () => {
-    let total = 0;
-    let correct = 0;
-
-    // 1️⃣ Fill-in-the-blanks
-    document.querySelectorAll("input[data-answer]").forEach(inp => {
-      const answers = inp.dataset.answer.split("|").map(a => a.trim().toLowerCase());
-      total++;
-      if (answers.includes(inp.value.trim().toLowerCase())) correct++;
-    });
-
-    // 2️⃣ Multiple-choice
-    document.querySelectorAll(".mc input[type=radio]:checked").forEach(r => {
-      total++;
-      if (r.dataset.correct === "true") correct++;
-    });
-
-    // 3️⃣ Matching (drag & drop)
-    const rightItems = document.querySelectorAll("#right-col .draggable");
-    if (rightItems.length) {
-      total += rightItems.length;
-      rightItems.forEach((item, i) => {
-        if (window.currentPairs && item.textContent === window.currentPairs[i].right) {
-          correct++;
-        }
-      });
-    }
-
-    const percent = total ? Math.round((correct / total) * 100) : 0;
-    feedback.textContent = `Score: ${correct} / ${total} (${percent}%)`;
-  });
-
-  resetAllBtn.addEventListener("click", () => {
-    feedback.textContent = "";
-    // Clear inputs
-    document.querySelectorAll("input[data-answer]").forEach(inp => (inp.value = ""));
-    // Uncheck radios
-    document.querySelectorAll(".mc input[type=radio]").forEach(r => (r.checked = false));
-    // Reset matching
-    const resetBtn = document.getElementById("reset");
-    if (resetBtn) resetBtn.click();
-  });
+  feedback.textContent = `You got ${correct} / ${totalExercises} correct (${percent}%)`;
 });
+
+
 
 
 
