@@ -28,12 +28,19 @@ export function check(type, i){
 
   ok = answers.includes(String(val).toLowerCase().trim());
   const fb = document.getElementById(`${type}-fb-${i}`);
+
+  // ✅ Add this block:
+  const container =
+    fb?.closest(".exercise") || fb?.closest(".dialogue-line") || null;
+
   if(ok){
     fb.textContent = '✅ Correct!';
     fb.className = 'feedback correct';
+    if(container) container.classList.add("correct");
   } else {
     const show = answers && answers.length ? answers[0] : '—';
     fb.textContent = `❌ Correct: ${show}`;
     fb.className = 'feedback wrong';
+    if(container) container.classList.remove("correct");
   }
 }
