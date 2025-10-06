@@ -51,6 +51,8 @@ export function renderMCs(mcs){
 
 // --- MATCHING EXERCISE (DRAG & DROP) ---
 export function renderMatch(matches) {
+  window.currentPairs = matches;
+  
   const c = document.getElementById('match');
   c.innerHTML = `
     <div class="match-container">
@@ -179,4 +181,5 @@ export function renderGrammar(data){
           <tbody>${s.table.map(r=>`<tr>${r.map(cel=>`<td>${cel}</td>`).join('')}</tr>`).join('')}</tbody></table>`:''}
       </div>`).join('');
 }
+
 
