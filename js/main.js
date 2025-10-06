@@ -7,7 +7,8 @@ import { check as checkFn } from './checker.js';
 // Add new topic folder names here (and create folder with exercises.js + grammar.js)
 const TOPICS = [
   { id: 'wh_tobe', name: "WH and yes/no questions with the verb TO BE" },
-  { id: 'possessives', name: "Possessive Adjectives" }
+  { id: 'possessives', name: "Possessive Adjectives" },
+  { id: 'simple-present-1', name: "Present simple - basic rules" }
 ];
 
 // Build sidebar
@@ -72,6 +73,7 @@ async function loadTopic(topicId){
 
 // Load default topic
 loadTopic(TOPICS[0].id);
+
 
 
 
