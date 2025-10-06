@@ -6,8 +6,8 @@ import { check as checkFn } from './checker.js';
 // List of topics available (folder names under /topics).
 // Add new topic folder names here (and create folder with exercises.js + grammar.js)
 const TOPICS = [
-  { id: 'wh_tobe', name: "WH + TO BE" },
-  { id: 'possessives', name: "Possessives" }
+  { id: 'wh_tobe', name: "WH and yes/no questions with the verb TO BE" },
+  { id: 'possessives', name: "Possessive Adjectives" }
 ];
 
 // Build sidebar
@@ -72,3 +72,4 @@ async function loadTopic(topicId){
 
 // Load default topic
 loadTopic(TOPICS[0].id);
+
