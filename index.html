@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Grammar Practice Platform</title>
+<link rel="stylesheet" href="js/style.css" />
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <h2>Grammar Topics</h2>
+    <nav id="topic-list"></nav>
+    <div style="margin-top:14px;font-size:13px;color:rgba(255,255,255,0.85)">
+      Add topic folders to <code>/topics</code> with <code>exercises.js</code> + <code>grammar.js</code>.
+    </div>
+  </aside>
+
+  <main class="container">
+    <h1 id="topic-title">Loading...</h1>
+    <p class="lead" id="topic-lead">Select a topic on the left to load exercises.</p>
+
+    <div class="tab-bar" id="tab-bar">
+      <button class="tab active" data-target="#tabA">A — Fill</button>
+      <button class="tab" data-target="#tabB">B — Q & A</button>
+      <button class="tab" data-target="#tabC">C — Multiple Choice</button>
+      <button class="tab" data-target="#tabD">D — Matching</button>
+      <button class="tab" data-target="#tabE">E — Story</button>
+      <button class="tab" data-target="#tabGrammar">📘 Grammar</button>
+    </div>
+
+    <div id="tabA" class="tab-panel active">
+      <h2>Part A — Fill in the Blanks</h2>
+      <div id="fills"></div>
+    </div>
+
+    <div id="tabB" class="tab-panel">
+      <h2>Part B — Questions & Answers</h2>
+      <div id="qas"></div>
+    </div>
+
+    <div id="tabC" class="tab-panel">
+      <h2>Part C — Multiple Choice</h2>
+      <div id="mcs"></div>
+    </div>
+
+    <div id="tabD" class="tab-panel">
+      <h2>Part D — Matching</h2>
+      <div id="match"></div>
+    </div>
+
+    <div id="tabE" class="tab-panel">
+      <h2>Part E — Story (Dialogue)</h2>
+      <div id="story"></div>
+    </div>
+
+    <div id="tabGrammar" class="tab-panel">
+      <div id="grammar-content"></div>
+    </div>
+
+    <footer class="note">Switch topics by clicking the sidebar. To add topics, create a folder under <code>/topics</code> (see README in comments).</footer>
+  </main>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
