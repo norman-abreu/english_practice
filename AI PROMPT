@@ -1,0 +1,81 @@
+create five JSON Arrays that I will use in an HTML template to create exercises for my students. 
+1. The first array contains exercises where the students complete the blanks with the correct word(s) 
+2. The second array contans questions with answers. (The answers contain blanks where the students put the correct word(s) 
+3. The third array is a multiple choice exercise where different options have to be given and one has to be selected. 
+4. The fourth array is a match exercise where users match the expression on the left with expressions on the right 
+5. The fifth is a story with blanks that the students get to fill in with the correct words. 
+6. Create an extra JSON object with an explanation and examples of the grammar topic. A sample will be given at the end of this prompt.
+
+- Instructions 
+1. use the following JSON array examples to replicate them with the same structure including the definition of the array. 
+2. use logic and common sense to add blanks where it's relevant and necessary according to the grammar, but add clues in parenthesis whenever context needs to be given, or include information in the sentence that suggests one specific answer out of different possibilities 3. for grammar where more than one answer is possible due to contractions, or different alternatives being correct, remember to add all the answers in the property "a" of each object in the JSON ARRAY. 
+4. never give clues in parenthesis that give away the answer or where the verbs are conjugated, or adjectives are given in comparative or superlative form, or nouns in plural, instead, give clues using the base form of the verb or original word. 
+5. if the grammar or topic has ambiguities or it's not clear how to generate the json, ask the questions to clarify this issues before generating the json arrays 
+6. base the examples of grammar on other exercises found in grammar books or websites, to follow a common logic to these exercises. 
+7. create the exercises according to the English level I specify, using words, vocabulary, and examples suitable for learners of that level. 
+8. create as many sentences, and examples with as many exercises as I specify, and the story with as many words as I specify, too. 
+9. the story could be a conversation between two or more people, or a first person or third person narration. Try to be creative and avoid using the same topics for these stories over and over. 
+
+- Speficications 
+1. The exercise is for students of English of [A1 - BEGINNERS]. 
+2. The topic is [WH with the TO BE verb - introducing yourself and others, providing basic personal information] 
+3. Create [15] for each json array Create a story with at least [350] 
+
+- Json array samples: 
+
+export const fills = [
+  { q:"This is ___ book.", a:["my"] },
+  { q:"That is ___ car.", a:["his"] }
+];
+
+export const qas = [
+  { q:"Whose book is this? — ___ book.", a:["My","my"] },
+  { q:"Whose car is red? — ___ is red.", a:["His","his"] }
+];
+
+export const mcs = [
+  { q:"This is ___ pencil.", opts:["my","mine","me"], a:["my"] },
+  { q:"Those are ___ toys.", opts:["their","theirs","them"], a:["their","theirs"] }
+];
+
+export const matches = [
+  { left:"This is my book.", right:"It belongs to me." },
+  { left:"Is that her pen?", right:"Yes, it is her pen." }
+];
+
+export const story = {
+  title: "Labels and Possessions",
+  lines: [
+    { speaker:"Teacher", text:"Please write ___ name on your book.", a:["your"] },
+    { speaker:"Anna", text:"I lost ___ pencil.", a:["my"] }
+  ]
+};
+
+
+Grammar topic JSON Sample: 
+
+export const grammarExplanation = {
+  title: "Possessive Adjectives & Pronouns",
+  intro: "Possessive adjectives (my/your/his/her/our/their) go before nouns. Possessive pronouns (mine/yours/his/hers/ours/theirs) replace nouns.",
+  sections: [
+    {
+      heading: "Adjectives",
+      table: [
+        ["I","my"],["You","your"],["He","his"],["She","her"],["We","our"],["They","their"]
+      ]
+    },
+    {
+      heading: "Pronouns",
+      table: [
+        ["mine","belongs to me"],["yours","belongs to you"],["his","belongs to him"],["hers","belongs to her"],["ours","belongs to us"],["theirs","belongs to them"]
+      ]
+    },
+    {
+      heading: "Examples",
+      content: [
+        "This is my bag. → Possessive adjective before noun.",
+        "This bag is mine. → Possessive pronoun replaces the noun."
+      ]
+    }
+  ]
+};
