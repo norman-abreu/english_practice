@@ -36,7 +36,7 @@ export function renderMCs(mcs){
   });
 }
 
-export function renderMatch(matches){
+/*export function renderMatch(matches){
   const c = document.getElementById('match'); c.innerHTML = '';
   matches.forEach((p,i)=>{
     const html = `<div class="exercise">
@@ -47,7 +47,113 @@ export function renderMatch(matches){
     </div>`;
     c.insertAdjacentHTML('beforeend', html);
   });
+}*/
+
+// --- MATCHING EXERCISE (DRAG & DROP) ---
+export function renderMatch(matches) {
+  const c = document.getElementById('match');
+  c.innerHTML = `
+    <div class="match-container">
+      <h2>Match the Sentences</h2>
+      <p>Drag the items on the right column to match the sentences on the left column.</p>
+      <div class="grid">
+        <div class="left-col" id="left-col"></div>
+        <div class="right-col" id="right-col"></div>
+      </div>
+      <div class="controls">
+        <button id="check">Check answers</button>
+        <button id="reset" class="secondary">Reset</button>
+        <div id="feedback" class="result"></div>
+      </div>
+    </div>
+  `;
+
+  const leftCol = c.querySelector("#left-col");
+  const rightCol = c.querySelector("#right-col");
+  const feedback = c.querySelector("#feedback");
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function populate() {
+    leftCol.innerHTML = "";
+    rightCol.innerHTML = "";
+    matches.forEach(p => {
+      const leftDiv = document.createElement("div");
+      leftDiv.className = "item";
+      leftDiv.textContent = p.left;
+      leftCol.appendChild(leftDiv);
+    });
+    shuffle([...matches]).forEach(p => {
+      const rightDiv = document.createElement("div");
+      rightDiv.className = "item draggable";
+      rightDiv.draggable = true;
+      rightDiv.textContent = p.right;
+      rightCol.appendChild(rightDiv);
+    });
+    enableDrag();
+  }
+
+  function enableDrag() {
+    const draggables = c.querySelectorAll(".draggable");
+    draggables.forEach(d => {
+      d.addEventListener("dragstart", () => d.classList.add("dragging"));
+      d.addEventListener("dragend", () => d.classList.remove("dragging"));
+    });
+    rightCol.addEventListener("dragover", e => {
+      e.preventDefault();
+      const afterElement = getDragAfterElement(rightCol, e.clientY);
+      const dragging = c.querySelector(".dragging");
+      if (!dragging) return;
+      if (afterElement == null) rightCol.appendChild(dragging);
+      else rightCol.insertBefore(dragging, afterElement);
+    });
+  }
+
+  function getDragAfterElement(container, y) {
+    const draggables = [...container.querySelectorAll(".draggable:not(.dragging)")];
+    return draggables.reduce(
+      (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset, element: child };
+        } else return closest;
+      },
+      { offset: Number.NEGATIVE_INFINITY }
+    ).element;
+  }
+
+  function checkAnswers() {
+    const rightItems = [...rightCol.querySelectorAll(".draggable")];
+    let score = 0;
+    rightItems.forEach((item, i) => {
+      item.classList.remove("correct", "wrong");
+      if (item.textContent === matches[i].right) {
+        item.classList.add("correct");
+        score++;
+      } else {
+        item.classList.add("wrong");
+      }
+    });
+    feedback.textContent = `Score: ${score} / ${matches.length}`;
+  }
+
+  function reset() {
+    populate();
+    feedback.textContent = "";
+  }
+
+  c.querySelector("#check").onclick = checkAnswers;
+  c.querySelector("#reset").onclick = reset;
+  populate();
 }
+
 
 export function renderStory(story){
   const c = document.getElementById('story'); c.innerHTML = `<strong>${story.title}</strong>`;
@@ -73,3 +179,4 @@ export function renderGrammar(data){
           <tbody>${s.table.map(r=>`<tr>${r.map(cel=>`<td>${cel}</td>`).join('')}</tr>`).join('')}</tbody></table>`:''}
       </div>`).join('');
 }
+
