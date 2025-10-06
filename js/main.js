@@ -75,19 +75,46 @@ async function loadTopic(topicId){
 loadTopic(TOPICS[0].id);
 
 // --- GLOBAL CHECK & RESET ---
-checkAllBtn.addEventListener("click", () => {
-  // look for anything marked as correct by its local checker
-  const correctEls = document.querySelectorAll(".correct");
-  const totalExercises =
-    document.querySelectorAll(".exercise").length +
-    document.querySelectorAll(".mc").length +
-    document.querySelectorAll("#match .draggable").length;
+// --- GLOBAL CHECK & RESET (runs after DOM is ready) ---
+document.addEventListener("DOMContentLoaded", () => {
+  const checkAllBtn = document.getElementById("check-all");
+  const resetAllBtn = document.getElementById("reset-all");
+  const feedback = document.getElementById("global-feedback");
 
-  const correct = correctEls.length;
-  const percent = totalExercises ? Math.round((correct / totalExercises) * 100) : 0;
+  if (checkAllBtn) {
+    checkAllBtn.addEventListener("click", () => {
+      // count all elements with the .correct class
+      const correctEls = document.querySelectorAll(".correct");
+      const totalExercises =
+        document.querySelectorAll(".exercise").length +
+        document.querySelectorAll(".mc").length +
+        document.querySelectorAll("#match .draggable").length;
 
-  feedback.textContent = `You got ${correct} / ${totalExercises} correct (${percent}%)`;
+      const correct = correctEls.length;
+      const percent = totalExercises
+        ? Math.round((correct / totalExercises) * 100)
+        : 0;
+
+      feedback.textContent = `You got ${correct} / ${totalExercises} correct (${percent}%)`;
+    });
+  }
+
+  if (resetAllBtn) {
+    resetAllBtn.addEventListener("click", () => {
+      // clear all inputs and selections
+      document.querySelectorAll("input, select").forEach(el => (el.value = ""));
+      // remove visual markers
+      document
+        .querySelectorAll(".correct, .wrong")
+        .forEach(el => el.classList.remove("correct", "wrong"));
+      // clear global feedback
+      if (feedback) feedback.textContent = "";
+      // optional: reset drag & drop if it’s active
+      if (typeof window.populate === "function") window.populate();
+    });
+  }
 });
+
 
 
 
