@@ -8,7 +8,8 @@ import { check as checkFn } from './checker.js';
 const TOPICS = [
   { id: 'wh_tobe', name: "WH and yes/no questions with the verb TO BE" },
   { id: 'possessives', name: "Possessive Adjectives" },
-  { id: 'simple-present-1', name: "Present simple - basic rules" }
+  { id: 'simple-present-1', name: "Present simple - basic rules" },
+  { id: 'simple_past', name: "Simple past with did and BE}
 ];
 
 // Build sidebar
@@ -114,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
 
 
 
